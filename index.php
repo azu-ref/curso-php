@@ -1,21 +1,6 @@
 <?php
 $name = 'Fernando Azuaje';
-$jobs = [
-  [
-    'title' => 'Node.js Developer',
-    'description' => 'One year learning Node in Platzi'
-  ],
-  [
-    'title' => 'Php Developer',
-    'description' => 'One moth learning Php in Platzi'
-    
-  ],
-  [
-    'title' => 'Python Developer',
-    'description' => 'Mid year learning python in Platzi'
-
-  ]
-]
+require_once('jobs.php')
 ?>
 
 <!doctype html>
@@ -65,36 +50,11 @@ $jobs = [
         <div>
           <h3 class="border-bottom-gray" >Work Experience</h3>
           <ul>
-            <li class="work-position">
-              <h5><?php echo $jobs[0]['title']?></h5>
-              <p><?php echo $jobs[0]['description']?></p>
-              <strong>Achievements:</strong>
-              <ul>
-                <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-              </ul>
-            </li>
-            <li class="work-position">
-                <h5><?php echo $jobs[1]['title']?></h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.</p>
-                <strong>Achievements:</strong>
-                <ul>
-                  <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                  <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                  <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                </ul>
-              </li>
-              <li class="work-position">
-                  <h5><?php echo $jobs[2]['title']?></h5>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.</p>
-                  <strong>Achievements:</strong>
-                  <ul>
-                    <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                    <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                    <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                  </ul>
-                </li>
+            <?php
+            foreach($jobs as $job) {
+              printJob($job);
+            }
+            ?>
           </ul>
         </div>
         <div>
