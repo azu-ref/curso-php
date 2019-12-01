@@ -1,38 +1,30 @@
 <?php
+require_once('./app/models/Job.php');
+require_once('./app/models/Printable.php');
+
+use App\Models\{Job,Printable};
+
+$job1 = new Job('Node.js Developer', 'One year learning node in platzi');
+$job1->duration = 7;
+
+$job2 = new Job('Php Developer', 'One month learning php in platzi');
+$job2->duration = 1;
+
+$job3 = new Job('Pyhthon Developer', 'Four months in platzi');
+$job3->duration = 4;
 
 $jobs = [
-  [
-    'title' => 'Node.js Developer',
-    'description' => 'One year learning Node in Platzi',
-    'duration' => 20,
-  ],
-  [
-    'title' => 'Php Developer',
-    'description' => 'One moth learning Php in Platzi',
-    'duration' => 16,
-  ],
-  [
-    'title' => 'Python Developer',
-    'description' => 'Mid year learning python in Platzi',
-    'duration' => 12,
-  ]
+  $job1,
+  $job2,
+  $job3,
 ];
 
-function getDuration($jobDuration) {
-  $years = floor($jobDuration / 12);
-  $extraMonths = $jobDuration % 12;
-
-  return ($years >= 1) ? 
-    "$years years $extraMonths months" :
-    "$extraMonths months";
-}
-
-function printJob($job) {
-  $duration = getDuration($job['duration']);
+function printJob(Printable $job) {
+  $duration = $job->getDurationAsString();
   echo "
     <li class=\"work-position\">
-      <h5>{$job['title']}</h5>
-      <p>{$job['description']}</p>
+      <h5>{$job->getTitle()}</h5>
+      <p>{$job->description}</p>
       <p>{$duration}</p>
       <strong>Achievements:</strong>
       <ul>

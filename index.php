@@ -1,6 +1,7 @@
 <?php
+require_once('jobs.php');
 $name = 'Fernando Azuaje';
-require_once('jobs.php')
+echo $jobs[0]->getTitle();
 ?>
 
 <!doctype html>
