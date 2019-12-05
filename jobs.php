@@ -1,6 +1,6 @@
 <?php
-require_once('./app/models/Job.php');
-require_once('./app/models/Printable.php');
+require_once 'vendor/autoload.php';
+//require_once 'app/models/Job.php';
 
 use App\Models\{Job,Printable};
 

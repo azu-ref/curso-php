@@ -1,7 +1,6 @@
 <?php
 require_once('jobs.php');
 $name = 'Fernando Azuaje';
-echo $jobs[0]->getTitle();
 ?>
 
 <!doctype html>
