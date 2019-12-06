@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-class BaseElement implements Printable {
+class BaseElement{
 	protected $title;
 	public $description;
 	public $months;

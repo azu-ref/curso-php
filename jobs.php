@@ -1,29 +1,14 @@
 <?php
-require_once 'vendor/autoload.php';
-//require_once 'app/models/Job.php';
 
 use App\Models\{Job,Printable};
 
-$job1 = new Job('Node.js Developer', 'One year learning node in platzi');
-$job1->duration = 7;
+$jobs = Job::all();
 
-$job2 = new Job('Php Developer', 'One month learning php in platzi');
-$job2->duration = 1;
-
-$job3 = new Job('Pyhthon Developer', 'Four months in platzi');
-$job3->duration = 4;
-
-$jobs = [
-  $job1,
-  $job2,
-  $job3,
-];
-
-function printJob(Printable $job) {
+function printJob($job) {
   $duration = $job->getDurationAsString();
   echo "
     <li class=\"work-position\">
-      <h5>{$job->getTitle()}</h5>
+      <h5>{$job->title}</h5>
       <p>{$job->description}</p>
       <p>{$duration}</p>
       <strong>Achievements:</strong>
