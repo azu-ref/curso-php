@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 require_once '../vendor/autoload.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Aura\Router\RouterContainer;
 
 $capsule = new Capsule;
 
@@ -27,6 +28,29 @@ $capsule->setAsGlobal();
 // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
 $capsule->bootEloquent();
 
+$request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
+    $_SERVER,
+    $_GET,
+    $_POST,
+    $_COOKIE,
+    $_FILES
+);
+
+$routerContainer = new RouterContainer();
+$map = $routerContainer->getMap();
+$map->get('index', '/cursophp/', '../index.php');
+$map->get('addJobs', '/cursophp/jobs/add', '../addJobs.php');
+
+$matcher = $routerContainer->getMatcher();
+
+$route = $matcher->match($request);
+if(!$route) {
+    echo 'No route match';
+}
+
+var_dump($route);
+
+/*
 $route = $_GET['route'] ?? '/';
 
 if($route === '/') { //esto es un ruteo un poco feo pero funcional
@@ -34,4 +58,5 @@ if($route === '/') { //esto es un ruteo un poco feo pero funcional
 }elseif ($route === 'addJob') {
 	require '../addJob.php';
 }
+*/
 
