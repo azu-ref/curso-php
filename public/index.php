@@ -38,17 +38,17 @@ $request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
 
 $routerContainer = new RouterContainer();
 $map = $routerContainer->getMap();
-$map->get('index', '/cursophp/', '../index.php');
-$map->get('addJobs', '/cursophp/jobs/add', '../addJobs.php');
+$map->get('index', '/', '../index.php');
+$map->get('addJobs.php', '/jobs/add', '../addJobs.php');
 
 $matcher = $routerContainer->getMatcher();
 
 $route = $matcher->match($request);
 if(!$route) {
     echo 'No route match';
+} else {
+    require $route->handler;
 }
-
-var_dump($route);
 
 /*
 $route = $_GET['route'] ?? '/';
