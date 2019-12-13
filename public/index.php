@@ -12,14 +12,14 @@ use Aura\Router\RouterContainer;
 $capsule = new Capsule;
 
 $capsule->addConnection([
-    'driver'    => 'mysql',
-    'host'      => 'localhost',
-    'database'  => 'cursoPhp',
-    'username'  => 'root',
-    'password'  => '',
-    'charset'   => 'utf8',
-    'collation' => 'utf8_unicode_ci',
-    'prefix'    => '',
+  'driver'    => 'mysql',
+  'host'      => 'localhost',
+  'database'  => 'cursoPhp',
+  'username'  => 'root',
+  'password'  => '',
+  'charset'   => 'utf8',
+  'collation' => 'utf8_unicode_ci',
+  'prefix'    => '',
 ]);
 
 // Make this Capsule instance available globally via static methods... (optional)
@@ -29,34 +29,67 @@ $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
 $request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
-    $_SERVER,
-    $_GET,
-    $_POST,
-    $_COOKIE,
-    $_FILES
+  $_SERVER,
+  $_GET,
+  $_POST,
+  $_COOKIE,
+  $_FILES
 );
 
 $routerContainer = new RouterContainer();
 $map = $routerContainer->getMap();
-$map->get('index', '/', '../index.php');
-$map->get('addJobs.php', '/jobs/add', '../addJobs.php');
+$map->get('index', '/', [
+  'controller' => 'App\Controllers\IndexController',
+  'action' => 'indexAction'
+]);
+$map->get('addJobs.php', '/jobs/add', [
+  'controller' => 'App\Controllers\JobsController',
+  'action' => 'getAddJobAction'
+]);
+$map->post('saveJobs.php', '/jobs/add', [
+  'controller' => 'App\Controllers\JobsController',
+  'action' => 'getAddJobAction'
+]);
 
 $matcher = $routerContainer->getMatcher();
 
 $route = $matcher->match($request);
+
+function printJob($job) {
+  $duration = $job->getDurationAsString();
+  echo "
+    <li class=\"work-position\">
+      <h5>{$job->title}</h5>
+      <p>{$job->description}</p>
+      <p>{$duration}</p>
+      <strong>Achievements:</strong>
+      <ul>
+        <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
+        <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
+        <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
+      </ul>
+    </li>
+    ";
+}
+
 if(!$route) {
-    echo 'No route match';
+  echo 'No route match';
 } else {
-    require $route->handler;
+  $handlerData = $route->handler;
+  $controllerName = $handlerData['controller'];
+  $actionName = $handlerData['action'];
+
+  $controller = new $controllerName;
+  $controller->$actionName($request);
 }
 
 /*
 $route = $_GET['route'] ?? '/';
 
 if($route === '/') { //esto es un ruteo un poco feo pero funcional
-	require '../index.php';
+require '../index.php';
 }elseif ($route === 'addJob') {
-	require '../addJob.php';
+require '../addJob.php';
 }
 */
 

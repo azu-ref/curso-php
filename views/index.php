@@ -1,11 +1,3 @@
-<?php
-
-use App\Models\Job;
-
-require_once('jobs.php');
-$name = 'Fernando Azuaje';
-?>
-
 <!doctype html>
 <html lang="en">
 

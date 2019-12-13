@@ -2,8 +2,6 @@
 
 use App\Models\{Job,Printable};
 
-$jobs = Job::all();
-
 function printJob($job) {
   $duration = $job->getDurationAsString();
   echo "
